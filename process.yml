@@ -1,0 +1,8 @@
+apps:
+  - script: app.js
+    name: 'mq-notify'
+    watch: false
+    env:
+      NODE_ENV: development
+    env_production:
+      NODE_ENV: production
