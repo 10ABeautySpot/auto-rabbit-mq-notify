@@ -8,6 +8,9 @@ const overviewRules = {
     }, {
         field: "overMaxConnection",
         content: "超过预期连接数阈值"
+    }, {
+        field: "overMaxChannels",
+        content: "超过预期通道数阈值"
     }
     ]
 }
@@ -28,14 +31,14 @@ const findMatchRule = (analysisResult) => {
 }
 
 const notifyMqStatus = async (matchRules, mq) => {
-    const rulesContent= matchRules.map(r=>`<font color="info">${r.content} </font> `).join("\n >")
+    const rulesContent = matchRules.map(r => `<font color="info">${r.content} </font> `).join("\n >")
     let markdownContent = `## MQ助手发现异常\n  [${mq.name}](http://${mq.host}:${mq.port})\n > ${rulesContent}`;
     await sendWechatMessage(markdownContent)
 }
 
 const notifyWhenMatch = (analysisResult, mq) => {
     const matchRules = findMatchRule(analysisResult);
-    if(matchRules.length>0){
+    if (matchRules.length > 0) {
         notifyMqStatus(matchRules, mq);
     }
 }
