@@ -1,0 +1,17 @@
+{
+  "name": "auto-rabbit-mq-notify",
+  "version": "1.0.0",
+  "description": "notify by wechat bot",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "lodash": "^4.17.21",
+    "node-fetch": "^2.6.1",
+    "node-schedule": "^2.0.0",
+    "pino": "^6.11.1"
+  }
+}
