@@ -1,6 +1,6 @@
 const analyseOverview = (overview, mq) => {
     //default result
-    const result = {unacknowledged: false, overMaxConnection: false, overMaxChannels: false,details:{}};
+    const result = {overMaxMessageReady:false,unacknowledged: false, overMaxConnection: false, overMaxChannels: false,details:{}};
     const {queue_totals, object_totals} = overview;
     const {connections,channels} = object_totals;
     //update status
@@ -9,6 +9,14 @@ const analyseOverview = (overview, mq) => {
         result.details.unacknowledged={
             max:0,
             current:queue_totals.messages_unacknowledged
+        }
+    }
+
+    if (mq.maxMessageReady && queue_totals.messages_ready > 0) {
+        result.overMaxMessageReady = true;
+        result.details.overMaxMessageReady={
+            max:0,
+            current:queue_totals.messages_ready
         }
     }
 

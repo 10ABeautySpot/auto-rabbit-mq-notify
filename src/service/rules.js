@@ -4,13 +4,16 @@ const overviewRules = {
     name: "overview",
     rules: [{
         field: "unacknowledged",
-        content: "存在未确认的消息"
+        content: "overview-存在未确认的消息"
     }, {
         field: "overMaxConnection",
-        content: "超过预期连接数阈值"
+        content: "overview-超过预期连接数阈值"
     }, {
         field: "overMaxChannels",
-        content: "超过预期通道数阈值"
+        content: "overview-超过预期通道数阈值"
+    }, {
+        field: "overMaxMessageReady",
+        content: "overview-超过预期Ready数据阈值"
     }
     ]
 }
