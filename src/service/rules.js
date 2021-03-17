@@ -3,7 +3,7 @@ const {sendWechatMessage} = require("../common/wechat-bot");
 const overviewRules = {
     name: "overview",
     rules: [{
-        field: "hasUnacknowledged",
+        field: "unacknowledged",
         content: "存在未确认的消息"
     }, {
         field: "overMaxConnection",
@@ -22,8 +22,9 @@ const findMatchRule = (analysisResult) => {
     let pickRulesKey = _.keys(_.pickBy(analysisResult, (value) => !!value));
     allRules.forEach(groupRule => {
         groupRule.rules.forEach(ruleItem => {
-            if (pickRulesKey.indexOf(ruleItem.field) >= 0) {
-                rules.push(ruleItem);
+            let {field, content} = ruleItem
+            if (pickRulesKey.indexOf(field) >= 0) {
+                rules.push({field, content, detail: analysisResult.details[field]});
             }
         })
     })
@@ -31,7 +32,7 @@ const findMatchRule = (analysisResult) => {
 }
 
 const notifyMqStatus = async (matchRules, mq) => {
-    const rulesContent = matchRules.map(r => `<font color="info">${r.content} </font> `).join("\n >")
+    const rulesContent = matchRules.map(r => `<font color="info">${r.content} 阈值:${r.detail.max} 当前:${r.detail.current} </font> `).join("\n >")
     let markdownContent = `## MQ助手发现异常\n  [${mq.name}](http://${mq.host}:${mq.port})\n > ${rulesContent}`;
     await sendWechatMessage(markdownContent)
 }

@@ -8,6 +8,7 @@ const {getOverview} = require("./common/mq-api");
 
 const overViewJob = schedule.scheduleJob('0,10,20,30,40,50 * * * * ?', async function () {
     for (const mq of getConfig().mqs) {
+        console.log("----start");
         let overview = await getOverview(mq);
         let result = analyseOverview(overview, mq);
         notifyWhenMatch(result, mq);

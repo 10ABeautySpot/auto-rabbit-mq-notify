@@ -25,5 +25,5 @@
 
 ```
 nvm use
-npm run main.js
+npm run start
 ```
